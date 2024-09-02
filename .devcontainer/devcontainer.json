@@ -1,0 +1,28 @@
+{
+    "name": " sfmc_scraper ",
+    "build": {
+      "context": "..",
+      "dockerfile": "../environments/Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-toolsai.jupyter",
+                "ms-python.python",
+                "ms-azuretools.vscode-docker",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "mhutchie.git-graph",
+                "charliermarsh.ruff"
+            ],
+            "settings": {
+                "python.formatting.provider": "none",  // Disable other formatters
+                "editor.defaultFormatter": "charliermarsh.ruff",  // Set Ruff as the default formatter
+                "editor.formatOnSave": true  // Enable format on save
+            }
+        }
+    }, 
+    "forwardPorts": [8888], 
+    "runArgs": ["--env-file",".devcontainer/devcontainer.env"],
+    "postCreateCommand": "bash ./.devcontainer/post-install.sh"
+}

@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "Salesforce Marketing Cloud Docs Scraper"
+version = "0.1.0"
+description = "Scraper for Salesforce Marketing Cloud API Documentation"
+authors = ["Paweł Grabiński <pawelrgrabinski@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "sfmc_scraper", from = "src/" },
+]
+include = ["src/sfmc_scraper/py.typed"]  # Explicitly include py.typed if needed
+
+
+[tool.poetry.dependencies]
+python = "3.12.5"
+pytest-playwright = "^0.5.1"
+unstructured = "^0.15.8"
+ruamel-yaml = "^0.18.6"
+
+
+[tool.poetry.group.test]
+optional = true
+
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=8.3.0"
+
+
+[tool.poetry.group.dev]
+optional = true
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = ">=3.8.0"
+ruff = ">=0.5.7"
+mypy = "^1.11.1"
+
+
+[tool.mypy]
+strict = true
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

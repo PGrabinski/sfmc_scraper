@@ -1,0 +1,2 @@
+salesforce-url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_address?meta=Summary
+locators-to-await: [div.markdown-body, div.sidebar-content.sidebar-content-tree]

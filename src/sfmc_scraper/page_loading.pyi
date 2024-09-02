@@ -1,0 +1,6 @@
+"""Type Stubs for page_loading.py."""
+
+from typing import Any
+
+async def get_browser(playwright: Any) -> Any: ...
+async def get_page(browser: Any, url: str, locators_to_await: list[str]) -> Any: ...
