@@ -65,6 +65,59 @@ def save_to_file(content: str, filename: Path) -> None:
         file.write(content)
 
 
+def filter_missing_navlinks(navlinks: list[str]) -> list[str]:
+    """Get the missing navlinks.
+
+    Args:
+        navlinks (list[str]): list of navlinks
+
+    Returns:
+        list[str]: list of missing navlinks
+    """
+    return [
+        navlink
+        for navlink in navlinks
+        if "docs/marketing/marketing-cloud/" not in navlink
+    ]
+
+
+async def get_empty_navlinks_locators(
+    page: Page, navlinks: list[str]
+) -> list[list[Locator]]:
+    """Get the empty navlinks urls.
+
+    Args:
+        page (Page): a loaded page instance
+        navlinks (list): list of navlinks
+
+    Returns:
+        list: list of empty navlinks urls
+    """
+    empty_navlinks: list[str] = [
+        navlink.split("](")[0][1:] for navlink in filter_missing_navlinks(navlinks)
+    ]
+
+    empty_locators: list[list[Locator]] = [
+        await page.locator(f'a.sidebar-item:has-text("{navlink}")').all()
+        for navlink in empty_navlinks
+    ]
+
+    return empty_locators
+
+
+async def click_all_locators(page: Page, locators: list[Locator]) -> None:
+    """Click all locators.
+
+    Args:
+        page (Page): a loaded page instance
+        locators (list): list of locators
+    """
+    for i, locator in enumerate(locators):
+        await locator.click()
+        print(f"Clicked locator {i}")
+    await page.screenshot(path="screenshot.png")
+
+
 async def _run(config: dict[str, Any]) -> None:
     """Run the main async function."""
     async with async_playwright() as playwright:
@@ -74,6 +127,14 @@ async def _run(config: dict[str, Any]) -> None:
         )
         navlinks: list[str] = await get_all_navlinks_available(page)
         save_to_file("\n".join(navlinks), scraped_data / "navlinks.html")
+
+        empty_locators: list[list[Locator]] = await get_empty_navlinks_locators(
+            page, navlinks
+        )
+        print(f"Got {len(empty_locators)} empty locators")
+        await click_all_locators(
+            page, [locator for locators in empty_locators for locator in locators]
+        )
 
         main_content: str = await get_main_content(page)
         save_to_file(main_content, scraped_data / "main_content.html")
