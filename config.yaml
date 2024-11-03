@@ -1,2 +1,5 @@
-salesforce-url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_address?meta=Summary
-locators-to-await: [div.markdown-body, div.sidebar-content.sidebar-content-tree]
+salesforce-url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/
+locators-to-await: []
+base-url: /docs/marketing/marketing-cloud/references/
+initial-card: mc_rest_address
+max-steps: 20
