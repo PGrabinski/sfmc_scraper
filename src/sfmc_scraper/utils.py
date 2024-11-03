@@ -16,6 +16,9 @@ def load_config() -> dict[str, Any]:
     yaml = YAML()
     with open("config.yaml", "r") as file:
         config: dict[str, Any] = yaml.load(file)
+    config["success"] = 0
+    config["failed_content"] = 0
+    config["failed_page"] = 0
     logger.info("Config loaded.")
     return config
 
@@ -33,6 +36,6 @@ def save_to_file(content: str, filename: Path) -> None:
 
 
 logger = logging.getLogger("scraper")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(logging.FileHandler("scraper.log"))
 logger.info("Starting the scraper")

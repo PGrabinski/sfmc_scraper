@@ -25,6 +25,18 @@ async def _run(config: dict[str, Any]) -> None:
         website_map = await crawl_website_map(website_map, browser, 0, config)
         utils.logger.info("Saving website map")
         save_website_map(website_map, scraped_data)
+
+        utils.logger.info(f"Processed {len(website_map)} pages.")
+        utils.logger.info(
+            f"Success: {config['success']} ({config['success'] / len(website_map) * 100:.2f}%)"
+        )
+        utils.logger.info(
+            f"Failed to load the content: {config['failed_content']} ({config['failed_content'] / len(website_map) * 100:.2f}%)"
+        )
+        utils.logger.info(
+            f"Failed to load the page: {config['failed_page']} ({config['failed_page'] / len(website_map) * 100:.2f}%)"
+        )
+
         await browser.close()
 
 

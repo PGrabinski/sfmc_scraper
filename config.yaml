@@ -2,4 +2,4 @@ salesforce-url: https://developer.salesforce.com/docs/marketing/marketing-cloud/
 locators-to-await: []
 base-url: /docs/marketing/marketing-cloud/references/
 initial-card: mc_rest_address
-max-steps: 20
+max-steps: 500
