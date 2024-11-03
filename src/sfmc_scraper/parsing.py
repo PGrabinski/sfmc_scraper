@@ -68,7 +68,7 @@ async def get_main_content(page: Page) -> str:
 
     markdown_body: Locator = page.locator("div.markdown-body")
     try:
-        return await markdown_body.inner_html(timeout=5000)
+        return await markdown_body.inner_html(timeout=10000)
     except TimeoutError:
         logger.error("Failed to load the content.")
         return "Failed to load the content."

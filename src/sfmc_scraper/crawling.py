@@ -8,6 +8,7 @@ Functions:
 """
 
 from pathlib import Path
+from time import sleep
 from typing import Any
 
 from playwright.async_api import Browser, Page, TimeoutError
@@ -108,6 +109,9 @@ async def crawl_website_map(
     logger.info(f"Crawling {current_url}")
     new_map = website_map.copy()
     full_url: str = config["salesforce-url"] + current_url
+
+    sleep(2)
+
     try:
         page: Page = await get_page(browser, full_url)
     except TimeoutError:
