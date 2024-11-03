@@ -18,4 +18,9 @@ ENV PYTHONFAULTHANDLER=1 \
 
 RUN pipx install poetry
 
+COPY poetry.lock pyproject.toml ./
+
 RUN poetry install
+
+RUN playwright install-deps \
+    && playwright install 

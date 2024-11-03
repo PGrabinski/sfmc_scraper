@@ -1,5 +1,5 @@
 {
-    "name": " sfmc_scraper ",
+    "name": "sfmc_scraper",
     "build": {
       "context": "..",
       "dockerfile": "../environments/Dockerfile"
@@ -22,6 +22,7 @@
             }
         }
     }, 
+    "remoteUser": "root",
     "forwardPorts": [8888], 
     "runArgs": ["--env-file",".devcontainer/devcontainer.env"],
     "postCreateCommand": "bash ./.devcontainer/post-install.sh"
