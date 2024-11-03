@@ -5,6 +5,8 @@ Functions:
     get_page: Get a page instance.
 """
 
+import logging
+
 from playwright.async_api import Browser, Page, Playwright
 
 
@@ -21,19 +23,17 @@ async def get_browser(playwright: Playwright) -> Browser:
     return browser
 
 
-async def get_page(browser: Browser, url: str, locators_to_await: list[str]) -> Page:
+async def get_page(browser: Browser, url: str) -> Page:
     """Get a page instance.
 
     Args:
         browser (Browser): a browser instance
         url (str): url to load
-        locators_to_await (list): list of locators to wait
 
     Returns:
         Page: a loaded page instance
     """
     page: Page = await browser.new_page()
+    logging.info(f"Loading {url}")
     await page.goto(url)
-    for locator in locators_to_await:
-        await page.wait_for_selector(locator)
     return page
